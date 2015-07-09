@@ -1,3 +1,5 @@
 *~
 *.pyc
 email_settings.py
+pics
+nohup.out
