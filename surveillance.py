@@ -50,20 +50,20 @@ def main():
         
         gone_since = 0
         i = 1
-        os.system("python takepicture.py pic%d.jpg" % i)
+        os.system("python takepicture.py pics/pic%d.jpg" % i)
         i = 2
         while 1:
-            os.system("python takepicture.py pic%d.jpg" % i)
+            os.system("python takepicture.py pics/pic%d.jpg" % i)
             sleep(1)
-            _,a,b = imagecompare.compare("pic1.jpg","pic2.jpg")
+            _,a,b,_ = imagecompare.compare("pics/pic1.jpg","pics/pic2.jpg")
             print datetime.datetime.now().isoformat(" ") + " " + "%d %d" % (a,b)
             if a >= 4 and b >= 10:
                 print "Movement!"
                 if not at_home():
                     gone_since = 4
                     print "ALERT"
-                    os.rename("pic1.jpg", "save1%s.jpg" % str(int(time())))
-                    os.rename("pic2.jpg", "save2%s.jpg" % str(int(time())))
+                    os.rename("pics/pic1.jpg", "pics/save1%s.jpg" % str(int(time())))
+                    os.rename("pics/pic2.jpg", "pics/save2%s.jpg" % str(int(time())))
                     if time() - last_alert > 3600:
                         last_alert = time()
                         print "Sent email"
