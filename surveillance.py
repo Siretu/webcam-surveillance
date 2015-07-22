@@ -64,10 +64,11 @@ def main():
                     print "ALERT"
                     os.rename("pics/pic1.jpg", "pics/save1%s.jpg" % str(int(time())))
                     os.rename("pics/pic2.jpg", "pics/save2%s.jpg" % str(int(time())))
-                    if time() - last_alert > 3600:
+                    if time() - last_alert > 600:
                         last_alert = time()
                         print "Sent email"
                         mail(email_settings.username, "Movement detected", "Detected movement at home")
+                    os.system('espeak "Movement detected"')
                 break
             
             i = 3 - i
