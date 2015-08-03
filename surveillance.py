@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 import smtplib
 import datetime
 
-TIME_THRESHOLD = 10
+TIME_THRESHOLD = 600
 
 def at_home():
     with open("/home/siretu/.home") as f:
