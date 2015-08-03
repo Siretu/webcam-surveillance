@@ -5,7 +5,6 @@ import email_settings
 from email.mime.text import MIMEText
 import smtplib
 import datetime
-import time
 
 TIME_THRESHOLD = 10
 
@@ -14,7 +13,7 @@ def at_home():
         content = f.read()
         if content:
             last_time = float(content)
-            return time.time() - last_time < TIME_THRESHOLD
+            return time() - last_time < TIME_THRESHOLD
     return False
             
 
