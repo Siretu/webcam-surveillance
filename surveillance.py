@@ -1,6 +1,6 @@
 from time import sleep,time
 import imagecompare, takepicture
-import os
+import os, shutil
 import email_settings
 from email.mime.text import MIMEText
 import smtplib
@@ -38,6 +38,7 @@ def mail(email, subject, message):
 def main():
     gone_since = 0
     last_alert = 0
+    i = 1
     while 1:
         sleep(1)
         if at_home():
@@ -48,10 +49,6 @@ def main():
                 print "Couldn't reach phone, trying again. Try: %d" % gone_since
                 gone_since += 1
             else:
-                i = 1
-                os.system("python takepicture.py pics/pic%d.jpg" % i)
-                i = 2
-                sleep(1)
                 os.system("python takepicture.py pics/pic%d.jpg" % i)
                 _,a,b,_ = imagecompare.compare("pics/pic1.jpg","pics/pic2.jpg")
                 print datetime.datetime.now().isoformat(" ") + " " + "%d %d" % (a,b)
@@ -60,8 +57,8 @@ def main():
                     if not at_home():
                         gone_since = 4
                         print "ALERT"
-                        os.rename("pics/pic1.jpg", "pics/save1%s.jpg" % str(int(time())))
-                        os.rename("pics/pic2.jpg", "pics/save2%s.jpg" % str(int(time())))
+                        shutil.copyfile("pics/pic1.jpg", "pics/save1%s.jpg" % str(int(time())))
+                        shutil.copyfile("pics/pic2.jpg", "pics/save2%s.jpg" % str(int(time())))
                         if time() - last_alert > 600:
                             last_alert = time()
                             print "Sent email"
