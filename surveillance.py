@@ -9,7 +9,7 @@ import datetime
 TIME_THRESHOLD = 600
 
 def at_home():
-    with open("/home/siretu/.home") as f:
+    with open("%s/.home" % os.environ["HOME"]) as f:
         content = f.read()
         if content:
             last_time = float(content)

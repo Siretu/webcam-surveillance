@@ -7,15 +7,17 @@ def at_home():
 
     found = False
     for host in hostnames:
+        print "Polling %s" % host
         cmd = "ping -c 1 " + host
         response = os.popen(cmd).read()
         if "64 bytes from" in response:
+            print "Found"
             found = True
             break
     return found
 
 def update():
-    with open("/home/siretu/.home","w") as f:
+    with open("%s/.home" % os.environ["HOME"],"w") as f:
         print "Was at home at %s" % datetime.datetime.now().isoformat(" ")
         f.write(str(time.time()))
 
