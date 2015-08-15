@@ -22,6 +22,7 @@ def update():
         f.write(str(time.time()))
 
 while 1:
+    time.sleep(0.5)
     if at_home():
         update()
     else:
