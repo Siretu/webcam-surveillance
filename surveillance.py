@@ -52,7 +52,7 @@ def main():
                 os.system("python takepicture.py pics/pic%d.jpg" % i)
                 _,a,b,_ = imagecompare.compare("pics/pic1.jpg","pics/pic2.jpg")
                 print datetime.datetime.now().isoformat(" ") + " " + "%d %d" % (a,b)
-                if a >= 4 and b >= 10:
+                if a >= 4 and b >= 10 and b < 33:
                     print "Movement!"
                     if not at_home():
                         gone_since = 4
