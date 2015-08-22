@@ -62,7 +62,7 @@ def main():
                         if time() - last_alert > 600:
                             last_alert = time()
                             print "Sent email"
-                            mail(email_settings.username, "Movement detected", "Detected movement at home")
+                            mail(email_settings.username, "Movement detected", "Detected movement at home: %d %d" % (a,b))
                         os.system('espeak "Movement detected"')
                 i = 3 - i
 
