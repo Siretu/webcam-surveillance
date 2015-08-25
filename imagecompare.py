@@ -35,5 +35,6 @@ if __name__ == "__main__":
     print maxdiff
     print avgdiff
     print avg
+    print sums
     print sums[1] - sums[0]
 

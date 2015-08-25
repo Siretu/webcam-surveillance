@@ -7,6 +7,7 @@ import smtplib
 import datetime
 
 TIME_THRESHOLD = 1000
+LIGHT_THRESHOLD = 60000000
 
 def at_home():
     with open("%s/.home" % os.environ["HOME"]) as f:
@@ -50,9 +51,9 @@ def main():
                 gone_since += 1
             else:
                 os.system("python takepicture.py pics/pic%d.jpg" % i)
-                _,a,b,_ = imagecompare.compare("pics/pic1.jpg","pics/pic2.jpg")
+                _,a,b,sums = imagecompare.compare("pics/pic1.jpg","pics/pic2.jpg")
                 print datetime.datetime.now().isoformat(" ") + " " + "%d %d" % (a,b)
-                if a >= 5 and b >= 11 and b < 33:
+                if a >= 5 and b >= 11 and b < 33 and sums[0] < LIGHT_THRESHOLD and sums[1] < LIGHT_THRESHOLD:
                     print "Movement!"
                     if not at_home():
                         gone_since = 4
