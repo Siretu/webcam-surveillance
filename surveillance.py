@@ -1,3 +1,4 @@
+#!/usr/bin/python -u
 from time import sleep,time
 import imagecompare, takepicture
 import os, shutil
