@@ -6,6 +6,7 @@ import email_settings
 from email.mime.text import MIMEText
 import smtplib
 import datetime
+import socket
 
 TIME_THRESHOLD = 1000
 LIGHT_THRESHOLD = 60000000
@@ -37,6 +38,20 @@ def mail(email, subject, message):
     session.sendmail(gmail_username, recipients, msg)
     session.quit()
 
+def came_home():
+    print "Came home"
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(("localhost",5432))
+    sock.send("on")
+    sock.close()
+
+def left_home():
+    print "Left home"
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect(("localhost",5432))
+    sock.send("off")
+    sock.close()
+
 def main():
     gone_since = 0
     last_alert = 0
@@ -44,6 +59,8 @@ def main():
     while 1:
         sleep(1)
         if at_home():
+            if gone_since > 0:
+                came_home()
             gone_since = 0
             print datetime.datetime.now().isoformat(" ") + " " + "Still home"
         else:
@@ -51,6 +68,9 @@ def main():
                 print "Couldn't reach phone, trying again. Try: %d" % gone_since
                 gone_since += 1
             else:
+                if gone_since == 4:
+                    left_home()
+                    gone_since += 1
                 os.system("python takepicture.py pics/pic%d.jpg" % i)
                 _,a,b,sums = imagecompare.compare("pics/pic1.jpg","pics/pic2.jpg")
                 print datetime.datetime.now().isoformat(" ") + " " + "%d %d" % (a,b)
