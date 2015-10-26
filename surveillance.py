@@ -79,8 +79,8 @@ def main():
                     if not at_home():
                         gone_since = 4
                         print "ALERT"
-                        shutil.copyfile("pics/pic1.jpg", "pics/save1%s.jpg" % str(int(time())))
-                        shutil.copyfile("pics/pic2.jpg", "pics/save2%s.jpg" % str(int(time())))
+                        shutil.copyfile("pics/pic1.jpg", "pics/save%s_1.jpg" % str(int(time())))
+                        shutil.copyfile("pics/pic2.jpg", "pics/save%s_2.jpg" % str(int(time())))
                         if time() - last_alert > 600:
                             last_alert = time()
                             print "Sent email"
