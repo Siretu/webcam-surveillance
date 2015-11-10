@@ -4,18 +4,17 @@ import time
 import datetime
 
 def at_home():
-    hostnames = ["192.168.1.13"]
+    hostnames = ["192.168.1.13", "192.168.1.15"]
 
     found = False
     for host in hostnames:
         print "Polling %s" % host
         cmd = "ping -c 1 " + host
-        response = os.popen(cmd).read()
-        if "64 bytes from" in response:
-            print "Found"
-            found = True
-            break
-    return found
+        response = os.popen(cmd)
+        status = response.close()
+        if status == None: # None implies exit code 0 which means host is alive
+            return True
+    return False
 
 def update():
     with open("%s/.home" % os.environ["HOME"],"w") as f:

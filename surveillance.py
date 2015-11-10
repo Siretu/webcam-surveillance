@@ -17,6 +17,9 @@ def at_home():
         if content:
             last_time = float(content)
             return time() - last_time < TIME_THRESHOLD
+        else:
+            print "Error: No content"
+    print "Error: .home file couldn't be read"
     return False
             
 
@@ -59,7 +62,7 @@ def main():
     while 1:
         sleep(1)
         if at_home():
-            if gone_since > 0:
+            if gone_since > 3:
                 came_home()
             gone_since = 0
             print datetime.datetime.now().isoformat(" ") + " " + "Still home"
