@@ -13,7 +13,9 @@ def at_home():
         response = os.popen(cmd)
         status = response.close()
         if status == None: # None implies exit code 0 which means host is alive
+            print "Poll: Successful"
             return True
+        print "Poll: Unsuccessful"
     return False
 
 def update():
